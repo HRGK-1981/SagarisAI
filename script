@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Script to automate uploading a project to GitHub
+
+# Variables
+REPO_NAME="SagarisAI"
+GITHUB_USERNAME="HRGK-1981"
+GITHUB_TOKEN="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" # You can generate a token on GitHub (Settings -> Developer settings -> Personal access tokens)
+DESCRIPTION="AI-powered cybersecurity threat detection and response."
+
+# Step 1: Create a new GitHub repository using GitHub API
+echo "Creating a new repository on GitHub..."
+curl -u "$GITHUB_USERNAME:$GITHUB_TOKEN" https://api.github.com/user/repos -d "{\"name\":\"$REPO_NAME\", \"description\":\"$DESCRIPTION\", \"private\":false}"
+
+# Step 2: Initialize a new Git repository locally
+echo "Initializing local repository..."
+git init
+
+# Step 3: Add files to the repository
+echo "Adding files to repository..."
+git add .
+
+# Step 4: Commit the changes
+echo "Committing files..."
+git commit -m "Initial commit for SagarisAI project."
+
+# Step 5: Add remote origin and push the changes to GitHub
+echo "Adding remote origin and pushing to GitHub..."
+git remote add origin https://github.com/$GITHUB_USERNAME/$REPO_NAME.git
+git branch -M main
+git push -u origin main
+
+echo "Project successfully uploaded to GitHub!"
